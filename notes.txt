@@ -1,0 +1,3 @@
+if you have any problem with running the application 
+try using:
+pip intall django --upgrade
