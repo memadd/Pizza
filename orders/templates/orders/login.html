@@ -1,0 +1,18 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <h2>Sign in </h2>
+    <form role="form" action="{% url 'orders:login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit" value="Login">
+
+    </form>
+{{message}}
+    
+{% endblock %}

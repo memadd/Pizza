@@ -13,3 +13,6 @@ class Toppings(models.Model):
     topp = models.CharField(max_length=30)
     def __str__(self):
         return f"{self.topp}"
+
+#class Cart(models.Model):
+
