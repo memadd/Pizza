@@ -1,4 +1,4 @@
-{% extends "orders/base.html" %}
+{% extends "users/base.html" %}
 
 {% block title %}
     Login
@@ -6,7 +6,7 @@
 
 {% block body %}
     <h2>Sign in </h2>
-    <form role="form" action="{% url 'orders:login' %}" method="POST">
+    <form role="form" action="{% url 'users:login' %}" method="POST">
         {% csrf_token %}
         <input type="text" name="username">
         <input type="password" name="password">

@@ -14,5 +14,5 @@ class Toppings(models.Model):
     def __str__(self):
         return f"{self.topp}"
 
-#class Cart(models.Model):
+
 

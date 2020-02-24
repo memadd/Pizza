@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pizza.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'C:\Users\memadd\Downloads\project3\users\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
