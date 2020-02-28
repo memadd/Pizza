@@ -13,12 +13,110 @@
 {% endif %}
     <h1>Menu</h1>
 
-    {% for order in orders %}
+    <h3>Pizza</h3>
+    {% for piza in pizza %}
         <div>
-          {{order}}  
-          <button>Add to cart</button>
+            {{piza.food}}
+            <form>
+                <div class="multiselect">
+                  <div class="selectBox" onclick="showCheckboxes()">
+                    <label for="toppings">Toppings:</label>
+                    <select id="toppings">
+                      <option>Select an option</option>
+                    </select>
+                    <div class="overSelect"></div>
+                  </div>
+                  <div id="checkboxes">
+                    {% for topping in toppings %} 
+                    <label for="{{topping}}">
+                      <input type="checkbox" id="one" />{{topping}}</label>
+                      {% endfor %}
+                  </div>
+            </div>
+          </form>
+            <input type="radio" id="small" name="price" value="{{piza.sprice}}">
+            <label for="small">Small:{{piza.sprice}}$</label>
+            <input type="radio" id="large" name="price" value="{{piza.lprice}}">
+            <label for="large">Large:{{piza.lprice}}$</label><br>
+            <button>Add to cart</button>
         </div>
-    {% endfor %}
-   
+        <br>
+        {% endfor %}
 
+    <h3>Subs</h3>  
+    {% for sub in subs %}  
+    <div>
+        {% if sub.food == 'Steak' %}        
+        {{sub.food}}
+        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
+        <label for="small">Small:{{sub.sprice}}$</label>
+        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+        <label for="large">Large:{{sub.lprice}}$</label>
+        <label for="extras"> Extra: </label>
+        <select id="extras">
+            <option value="Cheese">Cheese</option>
+            <option value="Mushrooms">Mushrooms</option>
+            <option value="Green Peppers">Green Peppers</option>
+            <option value="Onions">Onions</option>
+        </select>
+        
+        <br>
+        <button>Add to cart</button>
+        {% else %}
+        {% if sub.food == 'Sausage, Peppers & Onions' %}
+        {{sub.food}}
+        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+        <label for="large">Large:{{sub.lprice}}$</label>
+        <input type="checkbox" id="extra" name="extra" value="cheese">
+        <label for="extra"> Extra Cheese</label>
+        <button>Add to cart</button>
+        <br>
+        {% else %}
+        {{sub.food}}
+        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
+        <label for="small">Small:{{sub.sprice}}$</label>
+        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+        <label for="large">Large:{{sub.lprice}}$</label>
+        <input type="checkbox" id="extra" name="extra" value="cheese">
+        <label for="extra"> Extra Cheese</label>
+        <button>Add to cart</button>
+        <br>
+        {% endif %}
+        {% endif %}
+    </div>
+    <br>
+    {% endfor %}
+
+    <h3>Pasta</h3>
+    <h5>Baked Ziti</h5>
+    
+    <div> 
+        {% for pas in pasta %}
+        <input type="radio" id="{{pas.food}}" name="price" value="{{pas.sprice}}">
+        <label for="{{pas.food}}">{{pas.food}} {{pas.sprice}}$</label>
+        {% endfor %}
+        <button>Add to cart</button>
+    </div>
+    
+   <h3>Salads</h3>
+   {% for salad in salads %}
+   <div>
+       <h5>{{salad.food}}   for:{{salad.sprice}}$</h5>
+       <button>Add to cart</button>
+       <br>
+   </div>
+   {% endfor %}
+
+   <h3>Dinner Platters</h3>
+   {% for plate in plates %}
+   <div>
+   {{plate.food}}
+   <input type="radio" id="small" name="price" value="{{plate.sprice}}">
+    <label for="small">Small:{{plate.sprice}}$</label>
+    <input type="radio" id="large" name="price" value="{{plate.lprice}}">
+    <label for="large">Large:{{plate.lprice}}$</label><br>
+    <button>Add to cart</button>
+   </div>
+   <br>
+   {% endfor %}
 {% endblock %}
