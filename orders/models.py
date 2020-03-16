@@ -7,7 +7,7 @@ class Order(models.Model):
     lprice = models.FloatField(default=None, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.food}  small:{self.sprice}  large:{self.lprice}"
+        return f"{self.food}"
 
 class Toppings(models.Model):
     topp = models.CharField(max_length=30)

@@ -1,3 +1,4 @@
+  
 {% extends "orders/base.html" %}
 
 {% block title %}
@@ -6,34 +7,33 @@
 
 {% block body %}
 {% if user.is_authenticated %}
-<a href="{% url 'users:logout' %}">Logout</a>
+<a href="{% url 'accounts:logout' %}">Logout</a>
 {% else %}
-<a href="{% url 'users:login' %}">Login</a>
-<a href="{% url 'users:register' %}">Register</a>
+<a href="{% url 'accounts:login' %}">Login</a>
+<a href="{% url 'accounts:register' %}">Register</a>
 {% endif %}
     <h1>Menu</h1>
 
     <h3>Pizza</h3>
     {% for piza in pizza %}
         <div>
-            {{piza.food}}
-            <form>
+            {{piza.food}}<br>
+            <h5>Toppings:</h5>
+            
                 <div class="multiselect">
-                  <div class="selectBox" onclick="showCheckboxes()">
-                    <label for="toppings">Toppings:</label>
-                    <select id="toppings">
-                      <option>Select an option</option>
-                    </select>
+                  <div class="selectBox" id="piza-{{ forloop.counter }}" >
+                   
                     <div class="overSelect"></div>
                   </div>
-                  <div id="checkboxes">
+                  <div id="checkboxes" data-id="{{piza.id}}">
                     {% for topping in toppings %} 
-                    <label for="{{topping}}">
-                      <input type="checkbox" id="one" />{{topping}}</label>
+                    
+                      <input type="checkbox" id="topping-{{ forloop.counter }}" value="{{topping}}">
+                      <label for="topping-{{ forloop.counter }}">{{topping}}</label>
                       {% endfor %}
                   </div>
             </div>
-          </form>
+         
             <input type="radio" id="small" name="price" value="{{piza.sprice}}">
             <label for="small">Small:{{piza.sprice}}$</label>
             <input type="radio" id="large" name="price" value="{{piza.lprice}}">
