@@ -19,12 +19,7 @@
         <div>
             {{piza.food}}<br>
             <h5>Toppings:</h5>
-            
-                <div class="multiselect">
-                  <div class="selectBox" id="piza-{{ forloop.counter }}" >
-                   
-                    <div class="overSelect"></div>
-                  </div>
+                  
                   <div id="checkboxes" data-id="{{piza.id}}">
                     {% for topping in toppings %} 
                     
@@ -38,7 +33,8 @@
             <label for="small">Small:{{piza.sprice}}$</label>
             <input type="radio" id="large" name="price" value="{{piza.lprice}}">
             <label for="large">Large:{{piza.lprice}}$</label><br>
-            <button>Add to cart</button>
+            <a href="" class="btn btn-warning">Add to Cart</a>
+            <br>
         </div>
         <br>
         {% endfor %}
@@ -61,7 +57,7 @@
         </select>
         
         <br>
-        <button>Add to cart</button>
+        <a href="" class="btn btn-warning">Add to Cart</a>
         {% else %}
         {% if sub.food == 'Sausage, Peppers & Onions' %}
         {{sub.food}}
@@ -69,7 +65,7 @@
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <button>Add to cart</button>
+        <a href="" class="btn btn-warning">Add to Cart</a>
         <br>
         {% else %}
         {{sub.food}}
@@ -79,7 +75,7 @@
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <button>Add to cart</button>
+        <a href="" class="btn btn-warning">Add to Cart</a>
         <br>
         {% endif %}
         {% endif %}
@@ -95,14 +91,14 @@
         <input type="radio" id="{{pas.food}}" name="price" value="{{pas.sprice}}">
         <label for="{{pas.food}}">{{pas.food}} {{pas.sprice}}$</label>
         {% endfor %}
-        <button>Add to cart</button>
+        <a href="" class="btn btn-warning">Add to Cart</a>
     </div>
     
    <h3>Salads</h3>
    {% for salad in salads %}
    <div>
        <h5>{{salad.food}}   for:{{salad.sprice}}$</h5>
-       <button>Add to cart</button>
+       <a href="" class="btn btn-warning">Add to Cart</a>
        <br>
    </div>
    {% endfor %}
@@ -115,7 +111,7 @@
     <label for="small">Small:{{plate.sprice}}$</label>
     <input type="radio" id="large" name="price" value="{{plate.lprice}}">
     <label for="large">Large:{{plate.lprice}}$</label><br>
-    <button>Add to cart</button>
+    <a href="" class="btn btn-warning">Add to Cart</a>
    </div>
    <br>
    {% endfor %}

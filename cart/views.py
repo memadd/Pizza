@@ -1,25 +1,18 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Cart
+from django.shortcuts import render, redirect, get_object_or_404
+
+
 from orders.models import Order
 
-def view(requset):
-    cart = Cart.objects.all()[0]
-    context={
-        "cart":cart
-    }
-    template ="cart/view.html"
-    return render (requset, template, context)
+from shopping_cart.extras import generate_order_id, transact, generate_client_token
+from shopping_cart.models import OrderItem, Order, Transaction
 
-def update_cart(request, slug):
-    cart = Cart.objects.all()[0]
-    try:
-        order = Order.objects.get(slug=slug)
-    except Order.DoesNotExist:
-        pass
-    except:
-        pass
-    cart.order_items.add(order)
+import datetime
+import stripe
 
-
-
+@login_required
+def add_to_cart(request,pk):
+    product = Order.objects.get(id=pk)
