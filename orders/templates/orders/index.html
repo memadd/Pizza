@@ -33,7 +33,7 @@
             <label for="small">Small:{{piza.sprice}}$</label>
             <input type="radio" id="large" name="price" value="{{piza.lprice}}">
             <label for="large">Large:{{piza.lprice}}$</label><br>
-            <a href="" class="btn btn-warning">Add to Cart</a>
+            <a href="{% url 'cart:add_to_cart' piza.id %}" class="btn btn-warning">Add to Cart</a>
             <br>
         </div>
         <br>
@@ -57,7 +57,7 @@
         </select>
         
         <br>
-        <a href="" class="btn btn-warning">Add to Cart</a>
+        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
         {% else %}
         {% if sub.food == 'Sausage, Peppers & Onions' %}
         {{sub.food}}
@@ -65,7 +65,7 @@
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <a href="" class="btn btn-warning">Add to Cart</a>
+        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
         <br>
         {% else %}
         {{sub.food}}
@@ -75,7 +75,7 @@
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <a href="" class="btn btn-warning">Add to Cart</a>
+        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
         <br>
         {% endif %}
         {% endif %}
@@ -90,15 +90,16 @@
         {% for pas in pasta %}
         <input type="radio" id="{{pas.food}}" name="price" value="{{pas.sprice}}">
         <label for="{{pas.food}}">{{pas.food}} {{pas.sprice}}$</label>
+        <a href="{% url 'cart:add_to_cart' pas.id %}" class="btn btn-warning">Add to Cart</a><br>
         {% endfor %}
-        <a href="" class="btn btn-warning">Add to Cart</a>
+        
     </div>
     
    <h3>Salads</h3>
    {% for salad in salads %}
    <div>
        <h5>{{salad.food}}   for:{{salad.sprice}}$</h5>
-       <a href="" class="btn btn-warning">Add to Cart</a>
+       <a href="{% url 'cart:add_to_cart' salad.id %}" class="btn btn-warning">Add to Cart</a>
        <br>
    </div>
    {% endfor %}
@@ -111,8 +112,9 @@
     <label for="small">Small:{{plate.sprice}}$</label>
     <input type="radio" id="large" name="price" value="{{plate.lprice}}">
     <label for="large">Large:{{plate.lprice}}$</label><br>
-    <a href="" class="btn btn-warning">Add to Cart</a>
+    <a href="{% url 'cart:add_to_cart' plate.id %}" class="btn btn-warning">Add to Cart</a>
    </div>
    <br>
    {% endfor %}
+   <!--<a href="{% url 'shopping_cart:order_summary' %}" class="btn btn-warning">Go to Cart</a>-->
 {% endblock %}

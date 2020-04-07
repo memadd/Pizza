@@ -1,6 +1,7 @@
-from django.db import models
 
+from django.db import models
 from orders.models import Order
+# Create your models here.
 
 class OrderItem(models.Model):
     product = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
@@ -9,7 +10,7 @@ class OrderItem(models.Model):
     date_ordered = models.DateTimeField(null=True)
 
     def __str__(self):
-        return self.product.name
+        return self.product.food
 
 
 class Orderr(models.Model):
@@ -22,8 +23,8 @@ class Orderr(models.Model):
     def get_cart_items(self):
         return self.items.all()
 
+    def get_cart_total(self):
+        return sum([item.product.price for item in self.items.all()])
 
     def __str__(self):
-        return '{0} - {1}'.format(self.owner, self.ref_code)
-
-
+        return f"{self.owner},{self.ref_code}"       
