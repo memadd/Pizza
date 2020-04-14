@@ -7,12 +7,21 @@ from .extras import generate_order_id
 from django.contrib import messages
 
 # Create your views here.
+def get_user_pending_order(request):
+    # get order for the correct user
+    orderr = Orderr.objects.filter(owner=request.user, is_ordered=False)
+    if orderr.exists():
+        # get the only order in the list of filtered orders
+        return order[0]
+    return 0
+
+
 @login_required()
 def add_to_cart(request, pk):
     product = Order.objects.get(id=pk)
     order_item, status = OrderItem.objects.get_or_create(product=product)
     # create order associated with the user
-    name = ''
+    name = request.user
     user_order, status = Orderr.objects.get_or_create(owner=name, is_ordered=False)
     user_order.items.add(order_item)
     if status:
@@ -24,3 +33,18 @@ def add_to_cart(request, pk):
     messages.info(request, "item added to cart")
     return redirect(reverse('orders:index'))
 
+@login_required()
+def delete_from_cart(request, item_id):
+    item_to_delete = OrderItem.objects.filter(pk=item_id)
+    if item_to_delete.exists():
+        item_to_delete[0].delete()
+        messages.info(request, "Item has been deleted")
+    return redirect(reverse('shopping_cart:order_summary'))
+
+@login_required()
+def order_details(request, **kwargs):
+    existing_order = get_user_pending_order(request)
+    context = {
+        'order': existing_order
+    }
+    return render(request, 'shopping_cart/order_summary.html', context)    
