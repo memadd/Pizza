@@ -12,14 +12,17 @@ def get_user_pending_order(request):
     orderr = Orderr.objects.filter(owner=request.user, is_ordered=False)
     if orderr.exists():
         # get the only order in the list of filtered orders
-        return order[0]
+        return orderr[0]
     return 0
 
 
 @login_required()
 def add_to_cart(request, pk):
+    p = request.POST.getlist('price')
+    price = float(p[0])
+    
     product = Order.objects.get(id=pk)
-    order_item, status = OrderItem.objects.get_or_create(product=product)
+    order_item, status = OrderItem.objects.get_or_create(product=product, price=price)
     # create order associated with the user
     name = request.user
     user_order, status = Orderr.objects.get_or_create(owner=name, is_ordered=False)
@@ -34,12 +37,12 @@ def add_to_cart(request, pk):
     return redirect(reverse('orders:index'))
 
 @login_required()
-def delete_from_cart(request, item_id):
-    item_to_delete = OrderItem.objects.filter(pk=item_id)
+def delete_from_cart(request, pk):
+    item_to_delete = OrderItem.objects.filter(id=pk)
     if item_to_delete.exists():
         item_to_delete[0].delete()
         messages.info(request, "Item has been deleted")
-    return redirect(reverse('shopping_cart:order_summary'))
+    return redirect(reverse('cart:order_summary'))
 
 @login_required()
 def order_details(request, **kwargs):

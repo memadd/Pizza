@@ -14,14 +14,14 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            {{ item.product.name }}
+            {{ item.product.food }}
             <span class="pull-right">
               <a href="{% url 'cart:delete_item' item.id %}" data-balloon="remove this item from cart" class="text-danger" onclick="return confirm_delete();">
                 <i class="fas fa-trash"></i>
               </a>
             </span>
           </td>
-          <td>{{ item.product.price }}</td>
+          <td>{{ item.price }}</td>
         </tr>
       {% empty %}
         <tr>

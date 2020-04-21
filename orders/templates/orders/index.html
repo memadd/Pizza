@@ -16,6 +16,8 @@
 
     <h3>Pizza</h3>
     {% for piza in pizza %}
+        <form action="{% url 'cart:add_to_cart' piza.id %}" method="POST"> 
+            {% csrf_token %}
         <div>
             {{piza.food}}<br>
             <h5>Toppings:</h5>
@@ -33,9 +35,11 @@
             <label for="small">Small:{{piza.sprice}}$</label>
             <input type="radio" id="large" name="price" value="{{piza.lprice}}">
             <label for="large">Large:{{piza.lprice}}$</label><br>
-            <a href="{% url 'cart:add_to_cart' piza.id %}" class="btn btn-warning">Add to Cart</a>
+            <button class="btn btn-warning">Add to Cart</button>
+            
             <br>
         </div>
+        </form>
         <br>
         {% endfor %}
 
@@ -44,6 +48,8 @@
     <div>
         {% if sub.food == 'Steak' %}        
         {{sub.food}}
+        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+            {% csrf_token %}
         <input type="radio" id="small" name="price" value="{{sub.sprice}}">
         <label for="small">Small:{{sub.sprice}}$</label>
         <input type="radio" id="large" name="price" value="{{sub.lprice}}">
@@ -55,27 +61,36 @@
             <option value="Green Peppers">Green Peppers</option>
             <option value="Onions">Onions</option>
         </select>
-        
+        <button class="btn btn-warning">Add to Cart</button>
         <br>
-        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
+        </form>
+        
         {% else %}
         {% if sub.food == 'Sausage, Peppers & Onions' %}
         {{sub.food}}
+        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+            {% csrf_token %}
         <input type="radio" id="large" name="price" value="{{sub.lprice}}">
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-warning"> Add to Cart </button>
+        
         <br>
+        </form>
         {% else %}
         {{sub.food}}
+        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+            {% csrf_token %}
         <input type="radio" id="small" name="price" value="{{sub.sprice}}">
         <label for="small">Small:{{sub.sprice}}$</label>
         <input type="radio" id="large" name="price" value="{{sub.lprice}}">
         <label for="large">Large:{{sub.lprice}}$</label>
         <input type="checkbox" id="extra" name="extra" value="cheese">
         <label for="extra"> Extra Cheese</label>
-        <a href="{% url 'cart:add_to_cart' sub.id %}" class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-warning">Add to Cart</button>
+        </form>
+        
         <br>
         {% endif %}
         {% endif %}
@@ -108,12 +123,16 @@
    {% for plate in plates %}
    <div>
    {{plate.food}}
+   <form action="{% url 'cart:add_to_cart' plate.id %}" method="POST">
+    {% csrf_token %}
    <input type="radio" id="small" name="price" value="{{plate.sprice}}">
     <label for="small">Small:{{plate.sprice}}$</label>
     <input type="radio" id="large" name="price" value="{{plate.lprice}}">
     <label for="large">Large:{{plate.lprice}}$</label><br>
-    <a href="{% url 'cart:add_to_cart' plate.id %}" class="btn btn-warning">Add to Cart</a>
+    <button class="btn btn-warning">Add to Cart</button>
+
    </div>
+    </form>
    <br>
    {% endfor %}
    <a href="{% url 'cart:order_summary' %}" class="btn btn-warning">Go to Cart</a>
