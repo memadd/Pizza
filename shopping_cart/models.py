@@ -16,7 +16,7 @@ class OrderItem(models.Model):
 
 class Orderr(models.Model):
     ref_code = models.CharField(max_length=15)
-    owner = models.CharField(max_length=30)
+    owner = models.CharField(max_length=60)
     is_ordered = models.BooleanField(default=False)
     items = models.ManyToManyField(OrderItem)
     date_ordered = models.DateTimeField(auto_now=True)
