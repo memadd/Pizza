@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import OrderItem, Orderr
-from orders.models import Order
+from .models import OrderItem, Order
+from orders.models import Food
 from .extras import generate_order_id
 from django.contrib import messages
 
 # Create your views here.
 def get_user_pending_order(request):
     # get order for the correct user
-    orderr = Orderr.objects.filter(owner=request.user, is_ordered=False)
-    if orderr.exists():
+    order = Order.objects.filter(owner=request.user, is_ordered=False)
+    if order.exists():
         # get the only order in the list of filtered orders
-        return orderr[0]
+        return order[0]
     return 0
 
 
@@ -21,11 +21,11 @@ def add_to_cart(request, pk):
     p = request.POST.getlist('price')
     price = float(p[0])
     
-    product = Order.objects.get(id=pk)
+    product = Food.objects.get(id=pk)
     order_item, status = OrderItem.objects.get_or_create(product=product, price=price)
     # create order associated with the user
     name = request.user
-    user_order, status = Orderr.objects.get_or_create(owner=name, is_ordered=False)
+    user_order, status = Order.objects.get_or_create(owner=name, is_ordered=False)
     user_order.items.add(order_item)
     if status:
         # generate a reference code

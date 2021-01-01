@@ -1,10 +1,10 @@
 
 from django.db import models
-from orders.models import Order
-# Create your models here.
+from orders.models import Food
+
 
 class OrderItem(models.Model):
-    product = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
+    product = models.OneToOneField(Food, on_delete=models.SET_NULL, null=True)
     price = models.FloatField(default=None, blank=True, null=True)
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
@@ -14,7 +14,7 @@ class OrderItem(models.Model):
         return self.product.food
 
 
-class Orderr(models.Model):
+class Order(models.Model):
     ref_code = models.CharField(max_length=15)
     owner = models.CharField(max_length=60)
     is_ordered = models.BooleanField(default=False)

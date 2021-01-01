@@ -1,0 +1,21 @@
+toppings = {
+    'Pepperoni' : 'Pepperoni',
+    'Sausage' : 'Sausage',
+    'Mushrooms' : 'Mushrooms',
+    'Onions' : 'Onions',
+    'Ham' : 'Ham',
+    'Canadian Bacon' : 'Canadian Bacon',
+    'Pineapple': 'Pineapple',
+    'Eggplant' : 'Eggplant',
+    'Tomato & Basil' : 'Tomato & Basil',
+    'Green Peppers' : 'Green Peppers',
+    'Hamburger' : 'Green Peppers',
+    'Spinach' : 'Spinach',
+    'Artichoke' : 'Artichoke',
+    'Buffalo Chicken' : 'Buffalo Chicken',
+    'Barbecue Chicken' : 'Barbecue Chicken',
+    'Anchovies' : 'Anchovies',
+    'Black Olives' : 'Black Olives',
+    'Fresh Garlic' : 'Fresh Garlic',
+    'Zucchini' : 'Zucchini'
+}

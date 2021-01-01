@@ -4,7 +4,7 @@
     Login
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <h2>Sign in </h2>
     <form role="form" action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}

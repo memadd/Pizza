@@ -5,136 +5,182 @@
     Orders
 {% endblock %}
 
-{% block body %}
+{% block content %}
 {% if user.is_authenticated %}
 <a href="{% url 'accounts:logout' %}">Logout</a>
 {% else %}
 <a href="{% url 'accounts:login' %}">Login</a>
 <a href="{% url 'accounts:register' %}">Register</a>
 {% endif %}
-    <h1>Menu</h1>
-
-    <h3>Pizza</h3>
-    {% for piza in pizza %}
-        <form action="{% url 'cart:add_to_cart' piza.id %}" method="POST"> 
-            {% csrf_token %}
-        <div>
-            {{piza.food}}<br>
-            <h5>Toppings:</h5>
-                  
-                  <div id="checkboxes" data-id="{{piza.id}}">
-                    {% for topping in toppings %} 
-                    
-                      <input type="checkbox" id="topping-{{ forloop.counter }}" value="{{topping}}">
-                      <label for="topping-{{ forloop.counter }}">{{topping}}</label>
-                      {% endfor %}
-                  </div>
-            </div>
-         
-            <input type="radio" id="small" name="price" value="{{piza.sprice}}">
-            <label for="small">Small:{{piza.sprice}}$</label>
-            <input type="radio" id="large" name="price" value="{{piza.lprice}}">
-            <label for="large">Large:{{piza.lprice}}$</label><br>
-            <button class="btn btn-warning">Add to Cart</button>
-            
-            <br>
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Browse Our Menu</h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
         </div>
-        </form>
-        <br>
-        {% endfor %}
-
-    <h3>Subs</h3>  
-    {% for sub in subs %}  
-    <div>
-        {% if sub.food == 'Steak' %}        
-        {{sub.food}}
-        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
-            {% csrf_token %}
-        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
-        <label for="small">Small:{{sub.sprice}}$</label>
-        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
-        <label for="large">Large:{{sub.lprice}}$</label>
-        <label for="extras"> Extra: </label>
-        <select id="extras">
-            <option value="Cheese">Cheese</option>
-            <option value="Mushrooms">Mushrooms</option>
-            <option value="Green Peppers">Green Peppers</option>
-            <option value="Onions">Onions</option>
-        </select>
-        <button class="btn btn-warning">Add to Cart</button>
-        <br>
-        </form>
-        
-        {% else %}
-        {% if sub.food == 'Sausage, Peppers & Onions' %}
-        {{sub.food}}
-        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
-            {% csrf_token %}
-        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
-        <label for="large">Large:{{sub.lprice}}$</label>
-        <input type="checkbox" id="extra" name="extra" value="cheese">
-        <label for="extra"> Extra Cheese</label>
-        <button class="btn btn-warning"> Add to Cart </button>
-        
-        <br>
-        </form>
-        {% else %}
-        {{sub.food}}
-        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
-            {% csrf_token %}
-        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
-        <label for="small">Small:{{sub.sprice}}$</label>
-        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
-        <label for="large">Large:{{sub.lprice}}$</label>
-        <input type="checkbox" id="extra" name="extra" value="cheese">
-        <label for="extra"> Extra Cheese</label>
-        <button class="btn btn-warning">Add to Cart</button>
-        </form>
-        
-        <br>
-        {% endif %}
-        {% endif %}
+      </div>
     </div>
-    <br>
-    {% endfor %}
+  </section>
 
-    <h3>Pasta</h3>
-    <h5>Baked Ziti</h5>
-    
-    <div> 
-        {% for pas in pasta %}
-        <input type="radio" id="{{pas.food}}" name="price" value="{{pas.sprice}}">
-        <label for="{{pas.food}}">{{pas.food}} {{pas.sprice}}$</label>
-        <a href="{% url 'cart:add_to_cart' pas.id %}" class="btn btn-warning">Add to Cart</a><br>
-        {% endfor %}
-        
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Browse Menu</li>
+        </ol>
+      </nav>
     </div>
+  </section>
+
+
+  </section>
+
+  <!-- Listings -->
+  <section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+                {% for piza in pizza %}
+                <div class="card-body">
+                    <form action="{% url 'cart:add_to_cart' piza.id %}" method="POST"> 
+                        {% csrf_token %}
+                    
+                        {{piza.name}}
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">Toppings </label>
+                            <select name="topping" class="form-control">
+                              <option selected="true" disabled="disabled">Toppings (All)</option>
+                              {% for key,value in toppings.items %}
+                              
+                              <option value="{{key}}" 
+                              {% if key == values.topping %}
+                              selected
+                              {% endif %}
+                              >{{value}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        
+                     
+                        <input type="radio" id="small" name="price" value="{{piza.sprice}}">
+                        <label for="small">Small:{{piza.sprice}}$</label>
+                        <input type="radio" id="large" name="price" value="{{piza.lprice}}">
+                        <label for="large">Large:{{piza.lprice}}$</label><br>
+                        <button class="btn btn-warning">Add to Cart</button>
+                        
+                        <br>
+                    
+                    </form>
+                </div>
+                    {% endfor %}
+
+                    {% for sub in subs %}  
+                    <div class="card-body">
+                        {% if sub.name == 'Steak' %}        
+                        {{sub.name}}
+                        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+                            {% csrf_token %}
+                        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
+                        <label for="small">Small:{{sub.sprice}}$</label>
+                        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+                        <label for="large">Large:{{sub.lprice}}$</label>
+                        <label for="extras"> Extra: </label>
+                        <select id="extras">
+                            <option value="Cheese">Cheese</option>
+                            <option value="Mushrooms">Mushrooms</option>
+                            <option value="Green Peppers">Green Peppers</option>
+                            <option value="Onions">Onions</option>
+                        </select>
+                        <button class="btn btn-warning">Add to Cart</button>
+                        <br>
+                        </form>
+                        
+                        {% else %}
+                        {% if sub.name == 'Sausage, Peppers & Onions' %}
+                        {{sub.name}}
+                        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+                            {% csrf_token %}
+                        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+                        <label for="large">Large:{{sub.lprice}}$</label>
+                        <input type="checkbox" id="extra" name="extra" value="cheese">
+                        <label for="extra"> Extra Cheese</label>
+                        <button class="btn btn-warning"> Add to Cart </button>
+                        
+                        <br>
+                        </form>
+                        {% else %}
+                        {{sub.name}}
+                        <form action="{% url 'cart:add_to_cart' sub.id %}" method="POST">
+                            {% csrf_token %}
+                        <input type="radio" id="small" name="price" value="{{sub.sprice}}">
+                        <label for="small">Small:{{sub.sprice}}$</label>
+                        <input type="radio" id="large" name="price" value="{{sub.lprice}}">
+                        <label for="large">Large:{{sub.lprice}}$</label>
+                        <input type="checkbox" id="extra" name="extra" value="cheese">
+                        <label for="extra"> Extra Cheese</label>
+                        <button class="btn btn-warning">Add to Cart</button>
+                        </form>
+                        
+                        <br>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <br>
+                    {% endfor %}
+
+                    <h5>Baked Ziti</h5>
     
-   <h3>Salads</h3>
-   {% for salad in salads %}
-   <div>
-       <h5>{{salad.food}}   for:{{salad.sprice}}$</h5>
-       <a href="{% url 'cart:add_to_cart' salad.id %}" class="btn btn-warning">Add to Cart</a>
-       <br>
-   </div>
-   {% endfor %}
+                    <div class="card-body"> 
+                        {% for pas in pasta %}
+                        <input type="radio" id="{{pas.name}}" name="price" value="{{pas.sprice}}">
+                        <label for="{{pas.name}}">{{pas.name}} {{pas.sprice}}$</label>
+                        <a href="{% url 'cart:add_to_cart' pas.id %}" class="btn btn-warning">Add to Cart</a><br>
+                        {% endfor %}
+                        
+                    </div>   
+                  
+                    {% for salad in salads %}
+                    <div class="card-body">
+                        <h5>{{salad.name}}   for:{{salad.sprice}}$</h5>
+                        <a href="{% url 'cart:add_to_cart' salad.id %}" class="btn btn-warning">Add to Cart</a>
+                        <br>
+                    </div>
+                    {% endfor %}
+                 
+                    
+                    {% for plate in plates %}
+                    <div class="card-body">
+                    {{plate.name}}
+                    <form action="{% url 'cart:add_to_cart' plate.id %}" method="POST">
+                     {% csrf_token %}
+                    <input type="radio" id="small" name="price" value="{{plate.sprice}}">
+                     <label for="small">Small:{{plate.sprice}}$</label>
+                     <input type="radio" id="large" name="price" value="{{plate.lprice}}">
+                     <label for="large">Large:{{plate.lprice}}$</label><br>
+                     <button class="btn btn-warning">Add to Cart</button>
+                 
+                    </div>
+                     </form>
+                    <br>
+                    {% endfor %}
+            
+      </div>
+     
 
-   <h3>Dinner Platters</h3>
-   {% for plate in plates %}
-   <div>
-   {{plate.food}}
-   <form action="{% url 'cart:add_to_cart' plate.id %}" method="POST">
-    {% csrf_token %}
-   <input type="radio" id="small" name="price" value="{{plate.sprice}}">
-    <label for="small">Small:{{plate.sprice}}$</label>
-    <input type="radio" id="large" name="price" value="{{plate.lprice}}">
-    <label for="large">Large:{{plate.lprice}}$</label><br>
-    <button class="btn btn-warning">Add to Cart</button>
 
-   </div>
-    </form>
-   <br>
-   {% endfor %}
+      
+
+
+    </div>
+  </section>
+
+  
+  
    <a href="{% url 'cart:order_summary' %}" class="btn btn-warning">Go to Cart</a>
 {% endblock %}
 

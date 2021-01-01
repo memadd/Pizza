@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Order, Toppings
+from .models import Food
 
-admin.site.register(Order)
-admin.site.register(Toppings)
+admin.site.register(Food)
+
 
